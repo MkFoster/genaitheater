@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "enttec-open-dmx-usb": "^4.0.1",
+    "johnny-five": "^2.1.0",
+    "microsoft-cognitiveservices-speech-sdk": "^1.36.0",
+    "openai": "^4.40.2"
+  }
+}

@@ -1,0 +1,36 @@
+[
+    {
+        "audioFile": "audience-applause.wav",
+        "description": "Audience applause to play at the end or beginning of the show or after a success"
+    },
+    {
+        "audioFile": "magic-flash.wav",
+        "description": "Magic flash! sound effect"
+    },
+    {
+        "audioFile": "magic-orchestral-hit.wav",
+        "description": "Short magical orchestral hit"
+    },
+    { "audioFile": "magic-whoosh", "description": "Magical Whoosh! sound" },
+    { "audioFile": "magic-zap", "description": "Magic zap! sound" },
+    {
+        "audioFile": "magic-shimmer.wav",
+        "description": "Magic shimmer sound effect"
+    },
+    {
+        "audioFile": "magic-chimes.wav",
+        "description": "Magic chimes sound effect"
+    },
+    {
+        "audioFile": "audience-laughing.wav",
+        "description": "Audience laughing"
+    },
+    {
+        "audioFile": "silly-boing-drum-fail.wav",
+        "description": "A silly, elastic drum hit that you might play after a failure"
+    },
+    {
+        "audioFile": "silly-trumpet-plunger-wah-wah-fail.wav",
+        "description": "A silly trumpet plunger wah wah to play after a failed attempt"
+    }
+]

@@ -1,0 +1,77 @@
+Your are a stage lighting designer.
+
+The following test sequence should repeated for each DMX fixture:
+1. Set the fixture master fader (fixtureMasterFader) to full intensity
+2. For each color channel in the fixture, set the color to full intensity, wait duration x, and set the color back to 0.
+
+The "duration" is 1 second and should be defined in the output document as "standardDurationMilliSeconds."
+
+Using the following DMX configuration and JSON output format example, generate a DMX lighting test sequence for all the fixtures in the configuration.
+
+A JSON representation of the DMX configuration:
+
+---
+{
+  "fixtures": [
+    {
+        "fixtureMasterFader": 1,
+        "redChannel": 2,
+        "greenChannel": 3,
+        "blueChannel": 4,
+        "whiteChannel": 5
+    },
+    {
+        "fixtureMasterFader": 8,
+        "redChannel": 9,
+        "greenChannel": 10,
+        "blueChannel": 11
+        "whiteChannel": 12
+    },
+    {
+        "fixtureMasterFader": 15,
+        "redChannel": 16,
+        "greenChannel": 17,
+        "blueChannel": 18,
+        "whiteChannel": 19
+    },
+    {
+        "fixtureMasterFader": 22,
+        "redChannel": 23,
+        "greenChannel": 24,
+        "blueChannel": 25,
+        "whiteChannel": 26
+    }
+  ]
+}
+
+This is an example of the JSON output format required:
+{
+    "standardDurationMilliSeconds": 1,
+    "cues": [
+        { "type": "lights", "channelValues": {"1": 255, "2": 255} } //Set fixture 1 master fader and red to 255
+        { "type": "wait", "duration": "standard" }
+        { "type": "lights", "channelValues": {"2": 0} }
+        { "type": "lights", "channelValues": {"3": 255} }
+        { "type": "wait", "duration": "standard" }
+        { "type": "lights", "channelValues": {"3": 0} }
+        { "type": "lights", "channelValues": {"4": 255} }
+        { "type": "wait", "duration": "standard" }
+        { "type": "lights", "channelValues": {"4": 0} }
+        { "type": "lights", "channelValues": {"5": 255} }
+        { "type": "wait", "duration": "standard" }
+        { "type": "lights", "channelValues": {"5": 0, "1": 0} },
+        
+        { "type": "lights", "channelValues": {"8": 255, "9": 255} } //Set fixture 2 master fader and red to 255
+        { "type": "wait", "duration": "standard" }
+        { "type": "lights", "channelValues": {"9": 0} }
+        { "type": "lights", "channelValues": {"10": 255} }
+        { "type": "wait", "duration": "standard" }
+        { "type": "lights", "channelValues": {"10": 0} }
+        { "type": "lights", "channelValues": {"11": 255} }
+        { "type": "wait", "duration": "standard" }
+        { "type": "lights", "channelValues": {"11": 0} }
+        { "type": "lights", "channelValues": {"12": 255} }
+        { "type": "wait", "duration": "standard" }
+        { "type": "lights", "channelValues": {"12": 0, "8": 0} }
+    ]
+}

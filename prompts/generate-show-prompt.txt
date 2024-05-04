@@ -1,0 +1,139 @@
+Your are a playwright, stage director, and lighting designer.
+
+There are two toy magician dolls holding wands statically positioned on a small stage lit by four DMX par can lighting fixtures.
+The magician standing on stage right, is a teenage female, character1, and she is lit by the front right light fixture and back lit by the back right fixture.
+The magician standing on stage left, is a teenage male, character2, and he is lit by the front left light fixture and back lit by the back left fixture.
+The two characters can turn to face different directions using these presets in the "animate" cue type "rotate" property: faceForward, facePartLeft, faceFullLeft, facePartRight, faceFullRight.
+When character1 is faceFullLeft she is directly facing character2.  When character2 is faceFullRight he is directly facing character1.
+Both characters are facing out to the audience when they are faceForward. Turn the characters if you want them to address each other or the audience.
+Write a new PG-rated involving the two magicians and output to valid JSON.  The show run time should be 5 minutes.
+They know they are toy dolls, their script is AI generated, and that they have monotone voices. You can decide if you want to work that into the act.
+There might be an audience suggested theme at the end of this prompt.
+Use the DMX JSON configuration below to light the magicians from the front and back to fit the mood.
+Generate the script lines, pauses (wait times), and DMX lighting changes as cues in a JSON document and increment each audioFile line number.
+There is a library of sound effects reference in a JSON document below that can be included in the act.  Play the intro music before the act and the outro music after.
+Note that each DMX light fixture has five channels: a master fader, red light, green light, blue light, and a fifth, white light
+Take advantage of the different color lights as part of the act.  Combine colors and leverage different brightness levels from 0-255.
+Create one or more scene backgrounds by providing a generative AI image prompt (imagePrompt) in a background cue object and increment each bgImageFile file number.
+
+A JSON representation of the DMX configuration:
+
+---
+
+{
+  "fixtures": [
+    {
+        "name": "front left",
+        "fixtureMasterFader": 1,
+        "redChannel": 2,
+        "greenChannel": 3,
+        "blueChannel": 4,
+        "whiteChannel": 5
+    },
+    {
+        "name": "front right",
+        "fixtureMasterFader": 8,
+        "redChannel": 9,
+        "greenChannel": 10,
+        "blueChannel": 11
+        "whiteChannel": 12
+    },
+    {
+        "name": "back left",
+        "fixtureMasterFader": 15,
+        "redChannel": 16,
+        "greenChannel": 17,
+        "blueChannel": 18,
+        "whiteChannel": 19
+    },
+    {
+        "name": "back right",
+        "fixtureMasterFader": 22,
+        "redChannel": 23,
+        "greenChannel": 24,
+        "blueChannel": 25,
+        "whiteChannel": 26
+    }
+  ]
+}
+
+---
+
+This is the sound effect library in JSON.  Only sound effects from this library may be used:
+
+---
+
+[
+    {
+        "audioFile": "audience-applause.wav",
+        "description": "Audience applause to play at the end or beginning of the show or after a success"
+    },
+    {
+        "audioFile": "magic-flash.wav",
+        "description": "Magic flash! sound effect"
+    },
+    {
+        "audioFile": "magic-orchestral-hit.wav",
+        "description": "Short magical orchestral hit"
+    },
+    { "audioFile": "magic-whoosh", "description": "Magical Whoosh! sound" },
+    { "audioFile": "magic-zap", "description": "Magic zap! sound" },
+    {
+        "audioFile": "magic-shimmer.wav",
+        "description": "Magic shimmer sound effect"
+    },
+    {
+        "audioFile": "magic-chimes.wav",
+        "description": "Magic chimes sound effect"
+    },
+    {
+        "audioFile": "audience-laughing.wav",
+        "description": "Audience laughing"
+    },
+    {
+        "audioFile": "silly-boing-drum-fail.wav",
+        "description": "A silly, elastic drum hit that you might play after a failure"
+    },
+    {
+        "audioFile": "silly-trumpet-plunger-wah-wah-fail.wav",
+        "description": "A silly trumpet plunger wah wah to play after a failed attempt"
+    },
+    {
+        "audioFile": "intro-music.wav",
+        "description": "A short clip of electronica intro music to play before the show"
+    },
+    {
+        "audioFile": "outro-music.wav",
+        "description": "A short clip of electronica intro music to play after the show"
+    }
+]
+
+---
+
+This is very short example of the JSON output format required including lighting, wait, and script cues:
+
+---
+
+{
+    "cues": [
+        { "type": "background", "imagePrompt": "Closed stage curtain", "bgImageFile":"background-001.png"}
+        { "type": "animate", "character": "character1", "motion": "faceForward"},
+        { "type": "animate", "character": "character2", "motion": "faceForward"},
+        { "type": "lights", "channelValues": {"1": 255, "2": 255, "3": 100} }, //Set left front fixture master fader, red to 255, and green to 100
+        { "type": "lights", "channelValues": {"8": 255, "9": 255, "11": 150} }, //Set right front fixture master fader, red to 255, and blue to 150
+        { "type": "soundEffect", "audioFile": "audience-applause.wav"},  //Example of a sound effect from the library
+        { "type": "wait", "duration": 1000 }, //You can pause. The duration is in milliseconds
+        { "type": "background", "imagePrompt": "Magic stage backdrop framed by open curtains", "bgImageFile":"background-002.png"}
+        { "type": "animate", "character": "character1", "motion": "faceFullLeft"},
+        { "type": "animate", "character": "character2", "motion": "faceFullRight"},
+        { "type": "script", "character": "character1", "action": "winks", "line": "Hello, Jack.  We have quite the audience today, don't we?", "audioFile": "character1-line-001.wav" }, //Script line for the left magician AKA character1
+        { "type": "script", "character": "character2", "action": "", "line": "Yes we do, Jane.  Are your ready to put on a show?", "audioFile": "character2-line-001.wav" }, //Script line for the right magician AKA character2
+        { "type": "script", "character": "character1", "action": "clears throat", "line": "Let's do it!", "audioFile": "character1-line-002.wav" },
+        { "type": "animate", "character": "character1", "motion": "facePartLeft"},
+        { "type": "animate", "character": "character2", "motion": "facePartRight"},
+        { "type": "lights", "channelValues": {"1": 0, "2": 0} }, //Set left front fixture master fader and red to 0
+        { "type": "lights", "channelValues": {"8": 0, "9": 0} } //Set right front fixture master fader and red to 0
+    ]
+}
+
+---

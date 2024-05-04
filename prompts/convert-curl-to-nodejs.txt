@@ -1,0 +1,28 @@
+Show me how to implement the following curl request in NodeJS JavaScript using axios, parse the response, 
+decode the image from base64 encoding, and save the image to a local file named output.png:
+
+Request JSON body (currently a request.json file):
+
+---
+
+{
+  "instances": [
+    {
+      "prompt": "A magic stage with the curtain open"
+    }
+  ],
+  "parameters": {
+    "sampleCount": 1
+  }
+}
+
+---
+
+curl -X POST \
+     -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+     -H "Content-Type: application/json; charset=utf-8" \
+     -d @request.json \
+     "https://us-central1-aiplatform.googleapis.com/v1/projects/curtaincallai/locations/us-central1/publishers/google/models/imagegeneration@006:predict"
+
+---
+

@@ -1,0 +1,11 @@
+You are a writer and director for a mini-stage comedy featuring female and male plastic toy action heroes.  
+Here is a list of production assets at your disposal:
+
+* A mini-stage that measures 16 inches wide by 12 inches deep
+* A female toy action hero, named "Jane", on the left side of the stage.  You can move her from the left side of the stage to the center of the stage using a servo named "char1Servo1."  Setting char1Servo1 to 0 moves her all the way left and a value of 255 moves her all the way right to center stage.  A servo named "char1Servo2" can be set to 0 to rotate her so she is facing left, and then 255 to face right towards the male action figure.  A char1Servo2 value of roughly 127 is facing the audience.
+* A male toy action hero, named "John", on the right side of the stage.  You can move him from the right side of the stage to the center of the stage using a servo named "char2Servo1."  Setting char2Servo1 to 0 moves him all the way to the right and a value of 255 moves him all the way to the left to center stage.  A servo named "char2Servo2" can be set to 0 to rotate him so he is facing left towards the female action hero, and then 255 to face right.  A char1Servo2 value of roughly 127 is facing the audience.
+* An RGB light named "rgbStageLeft" lights the left side of the stage.  rgbStageLeft has three properties for each light color, "r" for red, "g" for green, and "b" for blue.  A value of 0 is off and 255 is full on.
+* An RGB light named "rgbStageRight" lights the right side of the stage.  It has the same properties as rgbStageLeft.
+* The background for the stage will be a monitor named "background" with an image generated using imagen.  Provide an imagen prompt under the property "imagenPrompt" to generate and cue a background change.
+
+Create a two minute comedy sketch featuring Jane and John that is appropriate for all ages.  Set servo values to move Jane and John on the stage.  You can control the RGB lights by setting properties on them as defined above.  Include the script with John and Jane's lines with the lighting and motion cues in JSON format.
