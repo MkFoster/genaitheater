@@ -6,7 +6,7 @@ The magician standing on stage left, is a teenage male, character2, and he is li
 The two characters can turn to face different directions using these presets in the "animate" cue type "rotate" property: faceForward, facePartLeft, faceFullLeft, facePartRight, faceFullRight.
 When character1 is faceFullLeft she is directly facing character2.  When character2 is faceFullRight he is directly facing character1.
 Both characters are facing out to the audience when they are faceForward. Turn the characters if you want them to address each other or the audience.
-Write a new PG-rated involving the two magicians and output to valid JSON.  The show run time should be 5 minutes.
+Write a new PG-rated involving the two magicians and output to valid JSON.  Make the script as long as possible.
 They know they are toy dolls, their script is AI generated, and that they have monotone voices. You can decide if you want to work that into the act.
 There might be an audience suggested theme at the end of this prompt.
 Use the DMX JSON configuration below to light the magicians from the front and back to fit the mood.
