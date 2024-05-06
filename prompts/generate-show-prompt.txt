@@ -1,20 +1,28 @@
 Your are a playwright, stage director, and lighting designer.
 
-There are two toy magician dolls holding wands statically positioned on a small stage lit by four DMX par can lighting fixtures.
-The magician standing on stage right, is a teenage female, character1, and she is lit by the front right light fixture and back lit by the back right fixture.
-The magician standing on stage left, is a teenage male, character2, and he is lit by the front left light fixture and back lit by the back left fixture.
+There are two toy dolls statically positioned on a small stage that will act as our characters in this production.
+They are lit by four DMX par can lighting fixtures.
+The doll standing on stage right, is a young female named Kate.  She will be referenced by "ch1" in the JSON output.
+She is lit by the front right light fixture and back lit by the back right fixture.
+She has the following SSML speaking styles available: "angry", "cheerful", "excited", "friendly", "hopeful", "sad", "shouting", "terrified", "unfriendly", "whispering"
+The doll standing on stage left, is a young male, named Dade.  He will be refererenced by "ch2" in the JSON output.
+He is lit by the front left light fixture and back lit by the back left fixture.
+He has the following SSML speaking styles available: "angry", "cheerful", "excited", "friendly", "hopeful", "sad", "shouting", "terrified", "unfriendly", "whispering"
 The two characters can turn to face different directions using these presets in the "animate" cue type "rotate" property: faceForward, facePartLeft, faceFullLeft, facePartRight, faceFullRight.
-When character1 is faceFullLeft she is directly facing character2.  When character2 is faceFullRight he is directly facing character1.
+When ch1 is faceFullLeft she is directly facing ch2.  When ch2 is faceFullRight he is directly facing ch1.
 Both characters are facing out to the audience when they are faceForward. Turn the characters if you want them to address each other or the audience.
-Write a new PG-rated involving the two magicians and output to valid JSON.  Make the script as long as possible.
+A "style" property can be optionally added to each script cue that will be converted later to SSML to make each character sound more dynamic.
+If no style property is added their speaking style will be normal.
+If a "style" property is added, a "styledegree" property can optionally be added with accepted number values between 0.01 and 2.  The default value is 1 if no styledegree propery is added.
+Write a new PG-rated comedy sketch involving the two programmers and output to valid JSON.  Make the script as long as possible.
 They know they are toy dolls, their script is AI generated, and that they have monotone voices. You can decide if you want to work that into the act.
 There might be an audience suggested theme at the end of this prompt.
 Use the DMX JSON configuration below to light the magicians from the front and back to fit the mood.
-Generate the script lines, pauses (wait times), and DMX lighting changes as cues in a JSON document and increment each audioFile line number.
+Generate the script lines, pauses (wait times), and DMX lighting changes as cues in a JSON document and increment each file line number.
 There is a library of sound effects reference in a JSON document below that can be included in the act.  Play the intro music before the act and the outro music after.
 Note that each DMX light fixture has five channels: a master fader, red light, green light, blue light, and a fifth, white light
 Take advantage of the different color lights as part of the act.  Combine colors and leverage different brightness levels from 0-255.
-Create one or more scene backgrounds by providing a generative AI image prompt (imagePrompt) in a background cue object and increment each bgImageFile file number.
+Create one or more scene backgrounds by providing a generative AI image prompt (imagePrompt) in a bg cue object and increment each bgImageFile file number.
 
 A JSON representation of the DMX configuration:
 
@@ -116,23 +124,23 @@ This is very short example of the JSON output format required including lighting
 
 {
     "cues": [
-        { "type": "background", "imagePrompt": "Closed stage curtain", "bgImageFile":"background-001.png"}
-        { "type": "animate", "character": "character1", "motion": "faceForward"},
-        { "type": "animate", "character": "character2", "motion": "faceForward"},
-        { "type": "lights", "channelValues": {"1": 255, "2": 255, "3": 100} }, //Set left front fixture master fader, red to 255, and green to 100
-        { "type": "lights", "channelValues": {"8": 255, "9": 255, "11": 150} }, //Set right front fixture master fader, red to 255, and blue to 150
-        { "type": "soundEffect", "audioFile": "audience-applause.wav"},  //Example of a sound effect from the library
+        { "type": "bg", "prompt": "Closed stage curtain", "file":"bg-001.png"}
+        { "type": "animate", "char": "ch1", "motion": "faceForward"},
+        { "type": "animate", "char": "ch2", "motion": "faceForward"},
+        { "type": "lights", "chVals": {"1": 255, "2": 255, "3": 100} }, //Set left front fixture master fader, red to 255, and green to 100
+        { "type": "lights", "chVals": {"8": 255, "9": 255, "11": 150} }, //Set right front fixture master fader, red to 255, and blue to 150
+        { "type": "sound", "file": "audience-applause.wav"},  //Example of a sound effect from the library
         { "type": "wait", "duration": 1000 }, //You can pause. The duration is in milliseconds
-        { "type": "background", "imagePrompt": "Magic stage backdrop framed by open curtains", "bgImageFile":"background-002.png"}
-        { "type": "animate", "character": "character1", "motion": "faceFullLeft"},
-        { "type": "animate", "character": "character2", "motion": "faceFullRight"},
-        { "type": "script", "character": "character1", "action": "winks", "line": "Hello, Jack.  We have quite the audience today, don't we?", "audioFile": "character1-line-001.wav" }, //Script line for the left magician AKA character1
-        { "type": "script", "character": "character2", "action": "", "line": "Yes we do, Jane.  Are your ready to put on a show?", "audioFile": "character2-line-001.wav" }, //Script line for the right magician AKA character2
-        { "type": "script", "character": "character1", "action": "clears throat", "line": "Let's do it!", "audioFile": "character1-line-002.wav" },
-        { "type": "animate", "character": "character1", "motion": "facePartLeft"},
-        { "type": "animate", "character": "character2", "motion": "facePartRight"},
-        { "type": "lights", "channelValues": {"1": 0, "2": 0} }, //Set left front fixture master fader and red to 0
-        { "type": "lights", "channelValues": {"8": 0, "9": 0} } //Set right front fixture master fader and red to 0
+        { "type": "bg", "prompt": "Magic stage backdrop framed by open curtains", "file":"bg-002.png"}
+        { "type": "animate", "char": "ch1", "motion": "faceFullLeft"},
+        { "type": "animate", "char": "ch2", "motion": "faceFullRight"},
+        { "type": "script", "char": "ch1", "action": "winks", "style":"cheerful" "styledegree": 1.5, "line": "Hello, Dade.  We have quite the audience today, don't we?", "file": "ch1-001.wav" }, //Script line for the left magician AKA ch1
+        { "type": "script", "char": "ch2", "action": "style": "cheerful", "line": "Yes we do Kate.  Are your ready to put on a show?", "file": "ch2-001.wav" }, //Script line for the right magician AKA ch2
+        { "type": "script", "char": "ch1", "action": "clears throat", "style": "excited", "styledegree": 1.5, "line": "Let's do it!", "file": "ch1-002.wav" },
+        { "type": "animate", "char": "ch1", "motion": "facePartLeft"},
+        { "type": "animate", "char": "ch2", "motion": "facePartRight"},
+        { "type": "lights", "chVals": {"1": 0, "2": 0} }, //Set left front fixture master fader and red to 0
+        { "type": "lights", "chVals": {"8": 0, "9": 0} } //Set right front fixture master fader and red to 0
     ]
 }
 

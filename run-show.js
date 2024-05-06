@@ -11,8 +11,8 @@ const boardComPort = "COM6";
 (async () => {
     let dmx;
     let board;
-    let character1Servo;
-    let character2Servo;
+    let ch1Servo;
+    let ch2Servo;
 
     let lightingEnabled = true;
     try {
@@ -28,13 +28,13 @@ const boardComPort = "COM6";
     let boardEnabled = true;
     try {
         board = await getBoard(boardComPort);
-        character1Servo = new Servo({
+        ch1Servo = new Servo({
             pin: 10,
             range: [10, 170],
             startAt: 90,
         });
 
-        character2Servo = new Servo({
+        ch2Servo = new Servo({
             pin: 11,
             range: [10, 170],
             startAt: 90,
@@ -57,32 +57,32 @@ const boardComPort = "COM6";
         switch (cueObj.type) {
             case "lights":
                 if (lightingEnabled) {
-                    dmx.setChannels(cueObj.channelValues);
+                    dmx.setChannels(cueObj.chVals);
                 }
                 break;
             case "wait":
                 await sleep(cueObj.duration);
                 break;
             case "script":
-                await playSound(showFolder + cueObj.audioFile);
+                await playSound(showFolder + cueObj.file);
                 break;
-            case "soundEffect":
-                await playSound(soundFolder + cueObj.audioFile);
+            case "sound":
+                await playSound(soundFolder + cueObj.file);
                 break;
-            case "background":
+            case "bg":
                 await displayImage(
-                    __dirname + path.sep + showFolder + cueObj.bgImageFile
+                    __dirname + path.sep + showFolder + cueObj.file
                 );
                 break;
             case "animate":
                 if (boardEnabled) {
                     let servo;
-                    if (cueObj.character == "character1") {
-                        servo = character1Servo;
-                    } else if (cueObj.character == "character2") {
-                        servo = character2Servo;
+                    if (cueObj.char == "ch1") {
+                        servo = ch1Servo;
+                    } else if (cueObj.char == "ch2") {
+                        servo = ch2Servo;
                     } else {
-                        console.log("Unknown character animation.");
+                        console.log("Unknown char(character) animation.");
                     }
                     switch (cueObj.motion) {
                         case "faceForward":

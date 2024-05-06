@@ -48,7 +48,6 @@ async function generateScript(showTheme) {
         ],
         model: modelName,
         response_format: { type: "json_object" },
-        max_tokens: 4096,
     });
 
     const responseJSON = completion.choices[0].message.content;
@@ -66,27 +65,63 @@ async function generateScript(showTheme) {
     return showObj;
 }
 
-async function generateScriptAudio(character, line, audioFile) {
-    const fileName = `shows/${audioFile}`;
+function getSSML(line, voice, style, styledegree) {
+    let startStyle = "";
+    let endStyle = "";
+    const lineWithCommasRemoved = line.replace(/,/g, " ");
+
+    if (typeof style === "string") {
+        if (
+            !(
+                typeof styledegree === "number" &&
+                styledegree >= 0.01 &&
+                styledegree <= 2.0
+            )
+        ) {
+            styledegree = 1.0;
+        }
+        // This a global preference for styledegree that may need tweaking depending on the voice models used
+        styledegree = styledegree - 0.3;
+        startStyle = `<mstts:express-as style="${style}" styledegree="${styledegree.toString()}">`;
+        endStyle = "</mstts:express-as>";
+    }
+
+    return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="en-US">
+                <voice name="${voice}">
+                    ${startStyle}
+                        ${lineWithCommasRemoved}
+                    ${endStyle}
+                </voice>
+            </speak>`;
+}
+
+async function generateScriptAudio(scriptLineObj) {
+    const fileName = `shows/${scriptLineObj.file}`;
     const speechConfig = sdk.SpeechConfig.fromSubscription(
         process.env.AZURE_SPEECH_KEY1,
         process.env.AZURE_SPEECH_REGION
     );
     const audioConfig = sdk.AudioConfig.fromAudioFileOutput(fileName);
 
-    if (character === "character1") {
-        speechConfig.speechSynthesisVoiceName = "en-US-JaneNeural";
-    } else {
-        speechConfig.speechSynthesisVoiceName = "en-US-JasonNeural";
+    let voiceName = "en-US-JasonNeural";
+    if (scriptLineObj.char === "ch1") {
+        voiceName = "en-US-JaneNeural";
     }
+
+    const ssml = getSSML(
+        scriptLineObj.line,
+        voiceName,
+        scriptLineObj.style,
+        scriptLineObj.styledegree
+    );
 
     // Create the speech synthesizer.
     let synthesizer = new sdk.SpeechSynthesizer(speechConfig, audioConfig);
 
     // Use a Promise to handle the asynchronous operation
     await new Promise((resolve, reject) => {
-        synthesizer.speakTextAsync(
-            line,
+        synthesizer.speakSsmlAsync(
+            ssml,
             (result) => {
                 if (
                     result.reason ===
@@ -143,16 +178,12 @@ async function generateShowAssets(scriptObj) {
         const cueObj = scriptObj.cues[i];
         switch (cueObj.type) {
             case "script":
-                await generateScriptAudio(
-                    cueObj.character,
-                    cueObj.line,
-                    cueObj.audioFile
-                );
+                await generateScriptAudio(cueObj);
                 break;
-            case "background":
+            case "bg":
                 await generateAndDownloadImage(
-                    cueObj.imagePrompt,
-                    `shows/${cueObj.bgImageFile}`
+                    cueObj.prompt,
+                    `shows/${cueObj.file}`
                 );
                 break;
         }
