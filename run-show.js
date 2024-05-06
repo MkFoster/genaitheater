@@ -105,6 +105,24 @@ const boardComPort = "COM6";
                     }
                 }
                 break;
+            case "dance":
+                playSound("sound-effects" + path.sep + "outro-music.wav", true);
+                if (lightingEnabled) {
+                    dmx.setChannels({ 31: 255, 37: 255 });
+                }
+                if (boardEnabled) {
+                    ch1Servo.sweep();
+                    ch2Servo.sweep();
+                }
+                await sleep(12000);
+                if (boardEnabled) {
+                    ch1Servo.stop();
+                    ch2Servo.stop();
+                }
+                if (lightingEnabled) {
+                    dmx.setChannels({ 31: 0, 37: 0 });
+                }
+                break;
             default:
                 console.error(`Unknown cue type: ${cueObj.type}`);
                 break;
@@ -131,10 +149,14 @@ async function getBoard(arduinoComPort) {
     });
 }
 
-async function playSound(soundPath) {
+async function playSound(soundPath, returnImediately = false) {
     try {
         // Spawn the cmdmp3.exe process
         const child = spawn("cmdmp3.exe", [soundPath]);
+
+        if (returnImediately) {
+            return;
+        }
 
         console.log("Playing :", soundPath);
         // Wait for the process to exit

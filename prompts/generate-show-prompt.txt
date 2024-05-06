@@ -23,6 +23,7 @@ There is a library of sound effects reference in a JSON document below that can 
 Note that each DMX light fixture has five channels: a master fader, red light, green light, blue light, and a fifth, white light
 Take advantage of the different color lights as part of the act.  Combine colors and leverage different brightness levels from 0-255.
 Create one or more scene backgrounds by providing a generative AI image prompt (imagePrompt) in a bg cue object and increment each bgImageFile file number.
+Add a cue type of "dance" the very end of the show to simultaneously make the characters dance, play music, and run a disco ball.
 
 A JSON representation of the DMX configuration:
 
@@ -56,11 +57,11 @@ A JSON representation of the DMX configuration:
     },
     {
         "name": "back right",
-        "fixtureMasterFader": 22,
-        "redChannel": 23,
-        "greenChannel": 24,
-        "blueChannel": 25,
-        "whiteChannel": 26
+        "fixtureMasterFader": 23,
+        "redChannel": 24,
+        "greenChannel": 25,
+        "blueChannel": 26,
+        "whiteChannel": 27
     }
   ]
 }
@@ -109,10 +110,6 @@ This is the sound effect library in JSON.  Only sound effects from this library 
     {
         "audioFile": "intro-music.wav",
         "description": "A short clip of electronica intro music to play before the show"
-    },
-    {
-        "audioFile": "outro-music.wav",
-        "description": "A short clip of electronica intro music to play after the show"
     }
 ]
 
@@ -141,6 +138,7 @@ This is very short example of the JSON output format required including lighting
         { "type": "animate", "char": "ch2", "motion": "facePartRight"},
         { "type": "lights", "chVals": {"1": 0, "2": 0} }, //Set left front fixture master fader and red to 0
         { "type": "lights", "chVals": {"8": 0, "9": 0} } //Set right front fixture master fader and red to 0
+        { "type": "dance"}
     ]
 }
 
