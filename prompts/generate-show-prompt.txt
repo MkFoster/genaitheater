@@ -14,7 +14,7 @@ Both characters are facing out to the audience when they are faceForward. Turn t
 A "style" property can be optionally added to each script cue that will be converted later to SSML to make each character sound more dynamic.
 If no style property is added their speaking style will be normal.
 If a "style" property is added, a "styledegree" property can optionally be added with accepted number values between 0.01 and 2.  The default value is 1 if no styledegree propery is added.
-Write a new PG-rated comedy sketch involving the two programmers and output to valid JSON.  Make the script as long as possible.
+Write a new PG-rated comedy involving the two programmers and output to valid JSON.
 They know they are toy dolls, their script is AI generated, and that they have monotone voices. You can decide if you want to work that into the act.
 There might be an audience suggested theme at the end of this prompt.
 Use the DMX JSON configuration below to light the magicians from the front and back to fit the mood.
@@ -78,22 +78,28 @@ This is the sound effect library in JSON.  Only sound effects from this library 
         "description": "Audience applause to play at the end or beginning of the show or after a success"
     },
     {
-        "audioFile": "magic-flash.wav",
-        "description": "Magic flash! sound effect"
+        "audioFile": "crumpling-paper.wav",
+        "description": "Crumpling paper into a ball"
     },
     {
         "audioFile": "magic-orchestral-hit.wav",
         "description": "Short magical orchestral hit"
     },
-    { "audioFile": "magic-whoosh", "description": "Magical Whoosh! sound" },
-    { "audioFile": "magic-zap", "description": "Magic zap! sound" },
-    {
-        "audioFile": "magic-shimmer.wav",
-        "description": "Magic shimmer sound effect"
+    {   
+        "audioFile": "keyboard.wav", 
+        "description": "Someone typing quickly"
+    },
+    {   
+        "audioFile": "computer-startup.wav", 
+        "description": "Synth sound a classic computer might make when it boots"
     },
     {
-        "audioFile": "magic-chimes.wav",
-        "description": "Magic chimes sound effect"
+        "audioFile": "error.wav",
+        "description": "Short error sound"
+    },
+    {
+        "audioFile": "computer-shutdown.wav",
+        "description": "Computer shutdown jingle"
     },
     {
         "audioFile": "audience-laughing.wav",
@@ -106,6 +112,30 @@ This is the sound effect library in JSON.  Only sound effects from this library 
     {
         "audioFile": "silly-trumpet-plunger-wah-wah-fail.wav",
         "description": "A silly trumpet plunger wah wah to play after a failed attempt"
+    },
+    {
+        "audioFile": "coffee-maker.wav",
+        "description": "A capsule coffee maker running"
+    },
+    {
+        "audioFile": "crickets.wav",
+        "description": "Crickets for a failed joke"
+    },
+    {
+        "audioFile": "data.wav",
+        "description": "Data transmission bleeps"
+    },
+    {
+        "audioFile": "tada.wav",
+        "description": "Synth Ta da! to play when something worked or someone got something right"
+    },
+    {
+        "audioFile": "comedy-drum.wav",
+        "description": "ba-dum-dum drum hits to play after a joke"
+    },
+    {
+        "audioFile": "transport.wav",
+        "description": "Beaming something or someone to a new location"
     },
     {
         "audioFile": "intro-music.wav",

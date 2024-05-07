@@ -132,3 +132,4 @@ output.mp3
 
 # Custom for Curtain Call
 cmdmp3.exe
+__pycache__/genbit.cpython-312.pyc
